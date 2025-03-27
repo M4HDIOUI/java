@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Program {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -7,31 +9,31 @@ public class Program {
             int num = sc.nextInt();
             if (num == 42)
                 break;
-            
-            if (isPrime(sumOfDig(num)))
+
+            int sum = 0;
+            int temp = num;
+            while (temp > 0) {
+                sum += temp % 10;
+                temp /= 10;
+            }
+
+            boolean isPrime = true;
+            if (sum < 2) {
+                isPrime = false;
+            } else {
+                for (int i = 2; i * i <= sum; i++) {
+                    if (sum % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isPrime)
                 coffReqCount++;
         }
+
         sc.close();
         System.out.println("Count of coffee-request : " + coffReqCount);
-    }
-    private static int sumOfDig(int num) {
-        int sum = 0;
-        while(num > 0) {
-            sum += num % 10;
-            num /= 10;
-        }
-        return sum;
-    }
-
-    private static boolean isPrime(int num) {
-        if (num < 2){
-            false;
-        }
-        for (int i = 2; i * i <= num; i++) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 }

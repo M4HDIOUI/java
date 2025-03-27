@@ -1,26 +1,37 @@
+import java.util.Scanner;
+
 public class Program {
     public static void main(String[] args) {
-        Scanner sc = new sc(System.in);
+        Scanner sc = new Scanner(System.in);
         StringBuilder res = new StringBuilder();
         int lastWeek = 0;
 
         while(true) {
-            String week = sc.next();
-            if (week.equals("42"))
+            String weekInput = sc.nextLine().trim();
+            if (weekInput.equals("42"))
                 break;
-            if (!week.equals("week")) {
+
+            if (!weekInput.startsWith("Week ")) {
                 System.out.println("IllegalArgument");
                 System.exit(-1);
             }
-            int weeknum = sc.nextInt();
+            int weeknum = Integer.parseInt(weekInput.substring(5).trim());
+
             if (weeknum < lastWeek || weeknum > 18) {
                 System.out.println("IllegalArgument");
                 System.exit(-1);
             }
             lastWeek = weeknum;
+
             int gradeMin = 9;
-            for (int i = 0; i < 5; i++){
-                int grade = Scanner.nextInt();
+            String[] grades = sc.nextLine().split("\\s+");
+            if (grades.length != 5) {
+                System.out.println("IllegalArgument");
+                System.exit(-1);
+            }
+
+            for (String gradeStr : grades) {
+                int grade = Integer.parseInt(gradeStr);
                 if (grade < 1 || grade > 9) {
                     System.out.println("IllegalArgument");
                     System.exit(-1);
@@ -28,13 +39,16 @@ public class Program {
                 if (grade < gradeMin)
                     gradeMin = grade;
             }
+
             res.append("Week ").append(weeknum).append(" ");
             for (int i = 0; i < gradeMin; i++) {
                 res.append("=");
             }
             res.append(">");
+            res.append("\n");
         }
+
         sc.close();
-        System.out.println(result.toString());
+        System.out.println(res.toString());
     }
 }
